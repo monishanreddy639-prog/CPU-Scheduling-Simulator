@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CPU Scheduling Simulator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <h1>CPU Scheduling Simulator</h1>
+    <p>
+      The CPU can run only one process at a time. CPU scheduling is how the
+      Operating System decides which process runs next. Add some processes,
+      choose an algorithm and see how it works.
+    </p>
+  </header>
+
+  <main class="container">
+
+    <!-- Algorithm selection -->
+    <section class="card">
+      <h2>1. Choose an Algorithm</h2>
+      <div class="algo-grid">
+        <label class="algo-card selected">
+          <input type="radio" name="algo" value="FCFS" checked>
+          <h3>FCFS</h3>
+          <p>First Come First Serve. The process that arrives first runs first.</p>
+        </label>
+        <label class="algo-card">
+          <input type="radio" name="algo" value="SJF">
+          <h3>SJF</h3>
+          <p>Shortest Job First (non-preemptive). The shortest burst time runs next.</p>
+        </label>
+        <label class="algo-card">
+          <input type="radio" name="algo" value="RR">
+          <h3>Round Robin</h3>
+          <p>Each process gets a fixed time quantum, then goes to the back of the queue.</p>
+        </label>
+      </div>
+
+      <div id="quantumBox" class="quantum-box hidden">
+        <label for="quantum">Time Quantum</label>
+        <input type="number" id="quantum" min="1" step="1" value="2">
+      </div>
+    </section>
+
+    <!-- Process input -->
+    <section class="card">
+      <h2>2. Add Processes</h2>
+      <form id="processForm" class="form-row">
+        <div class="field">
+          <label for="pid">Process ID</label>
+          <input type="text" id="pid" placeholder="P1">
+        </div>
+        <div class="field">
+          <label for="arrival">Arrival Time</label>
+          <input type="number" id="arrival" min="0" step="1" placeholder="0">
+        </div>
+        <div class="field">
+          <label for="burst">Burst Time</label>
+          <input type="number" id="burst" min="1" step="1" placeholder="5">
+        </div>
+        <div class="field buttons">
+          <button type="submit" class="btn">Add Process</button>
+        </div>
+      </form>
+
+      <div id="message" class="message hidden"></div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Process ID</th>
+              <th>Arrival Time</th>
+              <th>Burst Time</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody id="processBody"></tbody>
+        </table>
+      </div>
+
+      <div class="actions">
+        <button id="simulateBtn" class="btn">Simulate</button>
+        <button id="clearBtn" class="btn btn-light">Clear All Processes</button>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section id="results" class="card hidden">
+      <h2>3. Results</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Process ID</th>
+              <th>Arrival Time</th>
+              <th>Burst Time</th>
+              <th>Completion Time</th>
+              <th>Turnaround Time</th>
+              <th>Waiting Time</th>
+            </tr>
+          </thead>
+          <tbody id="resultBody"></tbody>
+        </table>
+      </div>
+
+      <div class="averages">
+        <div class="avg-box">Average Waiting Time: <strong id="avgWT"></strong></div>
+        <div class="avg-box">Average Turnaround Time: <strong id="avgTAT"></strong></div>
+      </div>
+
+      <h2>Gantt Chart</h2>
+      <div class="gantt-wrap">
+        <div id="gantt" class="gantt"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>CPU Scheduling Simulator | Operating Systems Mini Project</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
